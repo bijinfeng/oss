@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@vercel/remix";
+import { useTranslation } from "react-i18next";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,9 +9,16 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguageHandler = () => {
+    i18n.changeLanguage("en");
+  };
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1 className="tw-flex">Welcome to Remix</h1>
+      <h1>{t("greeting")}</h1>
+      <button onClick={changeLanguageHandler}>change language</button>
       <ul>
         <li>
           <a

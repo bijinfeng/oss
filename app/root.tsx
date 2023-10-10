@@ -10,7 +10,10 @@ import {
 import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction } from "@vercel/remix";
 
+import stylesheet from "~/tailwind.css";
+
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 

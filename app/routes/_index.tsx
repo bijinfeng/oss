@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@vercel/remix";
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button"
+import { ThemeToggle } from '~/components/theme-toggle';
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,6 +21,7 @@ export default function Index() {
       <h1 className="tw-flex">Welcome to Remix</h1>
       <h1>{t("greeting")}</h1>
       <Button>Click me</Button>
+      <ThemeToggle />
       <button onClick={changeLanguageHandler}>change language</button>
       <ul>
         <li>

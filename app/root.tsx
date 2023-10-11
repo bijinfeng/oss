@@ -7,16 +7,19 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useFetcher,
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
 import type { LinksFunction } from "@vercel/remix";
 import { useChangeLanguage } from "remix-i18next";
 import { useTranslation } from "react-i18next";
-import i18next from "~/i18next.server";
 import { json } from "@remix-run/node";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 
+import i18next from "~/i18next.server";
 import stylesheet from "~/tailwind.css";
+import { getThemeFromCookie } from "~/lib/theme.server";
+import { ThemeProvider } from "~/components/theme-provider";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -25,7 +28,9 @@ export const links: LinksFunction = () => [
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const locale = await i18next.getLocale(request);
-  return json({ locale });
+  const theme = await getThemeFromCookie(request);
+
+  return json({ locale, theme });
 }
 
 export const handle = {
@@ -37,8 +42,9 @@ export const handle = {
 };
 
 export default function App() {
-  const { locale } = useLoaderData<typeof loader>();
+  const { locale, theme = "system" } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation();
+  const fetcher = useFetcher();
 
   // This hook will change the i18n instance language to the current locale
   // detected by the loader, this way, when we do something to change the
@@ -46,8 +52,19 @@ export default function App() {
   // translation files
   useChangeLanguage(locale);
 
+  const onThemeChange = (theme: string) => {
+    fetcher.submit(
+      { theme },
+      {
+        method: "post",
+        encType: "application/json",
+        action: "/api/toggleTheme",
+      }
+    );
+  };
+
   return (
-    <html lang={locale} dir={i18n.dir()}>
+    <html lang={locale} dir={i18n.dir()} className={theme ?? "theme"}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -55,7 +72,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <ThemeProvider defaultTheme={theme} onThemeChange={onThemeChange}>
+          <Outlet />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

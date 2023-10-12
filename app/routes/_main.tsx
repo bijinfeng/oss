@@ -1,12 +1,12 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Outlet } from "@remix-run/react";
 import {
   json,
   type MetaFunction,
   type LoaderFunctionArgs,
 } from "@vercel/remix";
-// import { useTranslation } from "react-i18next";
 
 import { Header } from "~/components/header";
+import { Footer } from "~/components/footer";
 import { api } from "~/lib/appwrite";
 import { checkAuthSession } from "~/lib/auth.server";
 import { GlobalContext } from "~/lib/global.context";
@@ -29,16 +29,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function Index() {
   const { userInfo } = useLoaderData<typeof loader>();
 
-  // const { t, i18n } = useTranslation();
-
-  // const changeLanguageHandler = () => {
-  //   i18n.changeLanguage("en");
-  // };
-
   return (
     <GlobalContext.Provider value={{ userInfo }}>
-      <div className="hidden flex-col md:flex">
+      <div className="hidden flex-col min-h-screen md:flex">
         <Header />
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        <Footer />
       </div>
     </GlobalContext.Provider>
   );

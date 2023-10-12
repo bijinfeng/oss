@@ -1,5 +1,7 @@
 import type { Models } from "appwrite";
 
+export type Theme = "dark" | "light" | "system";
+
 export interface UserPreferences {}
 
 export interface UserInfo extends Models.User<UserPreferences> {}

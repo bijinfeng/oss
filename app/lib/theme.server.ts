@@ -1,4 +1,7 @@
 import { json } from "@remix-run/node";
+
+import type { Theme } from "~/interface";
+
 import { commitSession, getCurrentSession } from "./session.server";
 
 // You can use any name for the session key
@@ -18,7 +21,7 @@ export const createThemeCookie = async (request: Request, theme: string) => {
   );
 };
 
-export const getThemeFromCookie = async (request: Request) => {
+export const getThemeFromCookie = async (request: Request): Promise<Theme> => {
   const session = await getCurrentSession(request);
-  return session.get(THEME_PREFERENCE_KEY) || "system";
+  return (session.get(THEME_PREFERENCE_KEY) as Theme) || "system";
 };

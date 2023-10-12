@@ -1,26 +1,37 @@
 import { NavLink } from "@remix-run/react";
+// import { useTranslation } from "react-i18next";
 
 import { cn } from "~/lib/utils";
 
-const navList = [
-  {
-    title: "Overview",
-    to: "/examples/dashboard",
-  },
-  {
-    title: "Customers",
-    to: "/examples/dashboard1",
-  },
-];
+export const MainNav = (props: React.HTMLAttributes<HTMLElement>) => {
+  // const { t } = useTranslation();
 
-export function MainNav({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+  const navList = [
+    {
+      title: "图库",
+      to: "/",
+    },
+    {
+      title: "相册",
+      to: "/albums",
+    },
+    {
+      title: "上传",
+      to: "/upload",
+    },
+    {
+      title: "设置",
+      to: "/setting",
+    },
+  ];
+
   return (
     <nav
-      className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
+      className={cn(
+        "flex items-center space-x-4 lg:space-x-6",
+        props.className
+      )}
     >
       {navList.map((navItem) => (
         <NavLink

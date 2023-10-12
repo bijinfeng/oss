@@ -1,15 +1,16 @@
 import { PassThrough } from "stream";
+import { resolve } from "node:path";
 import type { EntryContext } from "@vercel/remix";
 import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 import { createInstance } from "i18next";
-import i18next from "./i18next.server";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import Backend from "i18next-fs-backend";
-import i18n from "./i18n"; // your i18n configuration file
-import { resolve } from "node:path";
+
+import i18next from "./i18next.server";
+import i18n from "./i18n";
 
 const ABORT_DELAY = 5000;
 

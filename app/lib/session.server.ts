@@ -1,6 +1,19 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage } from "@vercel/remix";
 
-export const sessionStore = createCookieSessionStorage({
+type SessionData = {
+  "user-id": string;
+  "ui-theme": string;
+  jwt: string;
+};
+
+type SessionFlashData = {
+  error: string;
+};
+
+export const sessionStore = createCookieSessionStorage<
+  SessionData,
+  SessionFlashData
+>({
   cookie: {
     name: process.env.SESSION_NAME || "__session",
     httpOnly: true,

@@ -6,11 +6,11 @@ import { ThemeToggle } from "~/components/theme-toggle";
 
 export function Header() {
   return (
-    <div className="border-b">
-      <div className="flex h-16 items-center px-4">
+    <header className="border-b">
+      <div className="container flex h-14 items-center">
         <Link to="/" className="flex items-center">
-          <img src="/logo.png" width={36} height={36} alt="logo" />
-          <span className="text-base pl-2">OSS Web</span>
+          <img src="/logo.png" width={32} height={32} alt="logo" />
+          <span className=" font-bold pl-2">OSS Web</span>
         </Link>
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
@@ -18,6 +18,6 @@ export function Header() {
           <ThemeToggle />
         </div>
       </div>
-    </div>
+    </header>
   );
 }

@@ -1,6 +1,7 @@
 import { useLoaderData, Outlet } from "@remix-run/react";
 import {
   json,
+  redirect,
   type MetaFunction,
   type LoaderFunctionArgs,
 } from "@vercel/remix";
@@ -22,8 +23,12 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await checkAuthSession(request);
 
-  const userInfo = await api.getAccount();
-  return json({ userInfo });
+  try {
+    const userInfo = await api.getAccount();
+    return json({ userInfo });
+  } catch (error) {
+    return redirect("/login");
+  }
 };
 
 export default function Index() {

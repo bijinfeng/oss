@@ -3,8 +3,8 @@ import { Client, Account, Avatars, Storage, Databases } from "appwrite";
 export const client = new Client();
 
 client
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("65221293d72706770b63");
+  .setEndpoint("https://appwrite.kebai.club/v1")
+  .setProject("652d337ad5a9a2720a1e");
 
 export const account = new Account(client);
 export const avatars = new Avatars(client);

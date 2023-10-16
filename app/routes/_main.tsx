@@ -38,7 +38,7 @@ export default function Index() {
     <GlobalContext.Provider value={{ userInfo }}>
       <div className="hidden flex-col min-h-screen md:flex">
         <Header />
-        <div className="flex-1">
+        <div className="container flex-1">
           <Outlet />
         </div>
         <Footer />

@@ -1,13 +1,7 @@
 import { Dot } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/components/ui/select";
+import { LanguageSelect } from "~/components/language-select";
 
 import packageJson from "../../package.json";
 
@@ -24,15 +18,11 @@ export const Footer = () => {
             v{packageJson.version}
           </a>
         </p>
-        <Select value={i18n.language} onValueChange={i18n.changeLanguage}>
-          <SelectTrigger className="w-32">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="zh">中文</SelectItem>
-            <SelectItem value="en">English</SelectItem>
-          </SelectContent>
-        </Select>
+        <LanguageSelect
+          value={i18n.language}
+          onChange={i18n.changeLanguage}
+          triggerClassName="w-32"
+        />
       </div>
     </footer>
   );

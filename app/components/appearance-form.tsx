@@ -1,10 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useTranslation } from "react-i18next";
 
-import { cn } from "~/lib/utils";
-import { Button, buttonVariants } from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,55 +14,99 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
+import { LanguageSelect } from "~/components/language-select";
+import { useTheme } from "./theme-provider";
 
 const appearanceFormSchema = z.object({
-  theme: z.enum(["light", "dark"], {
+  theme: z.enum(["light", "dark", "system"], {
     required_error: "Please select a theme.",
   }),
-  font: z.enum(["inter", "manrope", "system"], {
-    invalid_type_error: "Select a font",
-    required_error: "Please select a font.",
+  language: z.string({
+    required_error: "Please select a language.",
   }),
 });
 
 type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
 
+const LightCard = () => (
+  <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
+    <div className="space-y-2 rounded-md bg-white p-2 shadow-sm">
+      <div className="h-2 w-[80px] rounded-lg bg-[#ecedef]" />
+      <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
+    </div>
+    <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
+      <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
+      <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
+    </div>
+    <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
+      <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
+      <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
+    </div>
+  </div>
+);
+
+const DarkCard = () => (
+  <div className="space-y-2 rounded-sm bg-slate-950 p-2">
+    <div className="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm">
+      <div className="h-2 w-[80px] rounded-lg bg-slate-400" />
+      <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
+    </div>
+    <div className="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm">
+      <div className="h-4 w-4 rounded-full bg-slate-400" />
+      <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
+    </div>
+    <div className="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm">
+      <div className="h-4 w-4 rounded-full bg-slate-400" />
+      <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
+    </div>
+  </div>
+);
+
+const SystemCard = () => (
+  <div className="relative">
+    <LightCard />
+    <div
+      className="absolute top-0 left-0 w-full h-full"
+      style={{ clipPath: "polygon(0 0, 50% 0, 50% 100%, 0 100%)" }}
+    >
+      <DarkCard />
+    </div>
+  </div>
+);
+
 export const AppearanceForm = () => {
+  const { i18n } = useTranslation();
+  const { theme, setTheme } = useTheme();
+
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues: {},
+    defaultValues: {
+      language: i18n.language,
+      theme,
+    },
   });
 
-  const onSubmit = (data: AppearanceFormValues) => {};
+  const onSubmit = (data: AppearanceFormValues) => {
+    setTheme(data.theme);
+    i18n.changeLanguage(data.language);
+  };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="font"
+          name="language"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Font</FormLabel>
-              <div className="relative w-max">
-                <FormControl>
-                  <select
-                    className={cn(
-                      buttonVariants({ variant: "outline" }),
-                      "w-[200px] appearance-none bg-transparent font-normal"
-                    )}
-                    {...field}
-                  >
-                    <option value="inter">Inter</option>
-                    <option value="manrope">Manrope</option>
-                    <option value="system">System</option>
-                  </select>
-                </FormControl>
-                <ChevronDownIcon className="absolute right-3 top-2.5 h-4 w-4 opacity-50" />
-              </div>
-              <FormDescription>
-                Set the font you want to use in the dashboard.
-              </FormDescription>
+              <FormLabel>Language</FormLabel>
+              <FormControl>
+                <LanguageSelect
+                  value={field.value}
+                  onChange={field.onChange}
+                  triggerClassName="w-[200px]"
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
@@ -81,7 +124,7 @@ export const AppearanceForm = () => {
               <RadioGroup
                 onValueChange={field.onChange}
                 defaultValue={field.value}
-                className="grid max-w-md grid-cols-2 gap-8 pt-2"
+                className="grid grid-cols-3 gap-8 pt-2"
               >
                 <FormItem>
                   <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
@@ -89,20 +132,7 @@ export const AppearanceForm = () => {
                       <RadioGroupItem value="light" className="sr-only" />
                     </FormControl>
                     <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
-                      <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
-                        <div className="space-y-2 rounded-md bg-white p-2 shadow-sm">
-                          <div className="h-2 w-[80px] rounded-lg bg-[#ecedef]" />
-                          <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                        </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
-                          <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
-                          <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                        </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
-                          <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
-                          <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                        </div>
-                      </div>
+                      <LightCard />
                     </div>
                     <span className="block w-full p-2 text-center font-normal">
                       Light
@@ -114,24 +144,25 @@ export const AppearanceForm = () => {
                     <FormControl>
                       <RadioGroupItem value="dark" className="sr-only" />
                     </FormControl>
-                    <div className="items-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground">
-                      <div className="space-y-2 rounded-sm bg-slate-950 p-2">
-                        <div className="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm">
-                          <div className="h-2 w-[80px] rounded-lg bg-slate-400" />
-                          <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
-                        </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm">
-                          <div className="h-4 w-4 rounded-full bg-slate-400" />
-                          <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
-                        </div>
-                        <div className="flex items-center space-x-2 rounded-md bg-slate-800 p-2 shadow-sm">
-                          <div className="h-4 w-4 rounded-full bg-slate-400" />
-                          <div className="h-2 w-[100px] rounded-lg bg-slate-400" />
-                        </div>
-                      </div>
+                    <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
+                      <DarkCard />
                     </div>
+
                     <span className="block w-full p-2 text-center font-normal">
                       Dark
+                    </span>
+                  </FormLabel>
+                </FormItem>
+                <FormItem>
+                  <FormLabel className="[&:has([data-state=checked])>div]:border-primary">
+                    <FormControl>
+                      <RadioGroupItem value="system" className="sr-only" />
+                    </FormControl>
+                    <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
+                      <SystemCard />
+                    </div>
+                    <span className="block w-full p-2 text-center font-normal">
+                      System
                     </span>
                   </FormLabel>
                 </FormItem>
@@ -139,7 +170,6 @@ export const AppearanceForm = () => {
             </FormItem>
           )}
         />
-
         <Button type="submit">Update preferences</Button>
       </form>
     </Form>

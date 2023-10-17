@@ -11,8 +11,12 @@ import Backend from "i18next-fs-backend";
 
 import i18next from "./i18next.server";
 import i18n from "./i18n";
+import { getEnv } from "./lib/env.server";
 
 const ABORT_DELAY = 5000;
+
+// 注入全局的自定义环境变量
+global.ENV = getEnv();
 
 export default async function handleRequest(
   request: Request,

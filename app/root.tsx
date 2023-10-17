@@ -20,6 +20,7 @@ import i18next from "~/i18next.server";
 import stylesheet from "~/tailwind.css";
 import { getThemeFromCookie } from "~/lib/theme.server";
 import { ThemeProvider } from "~/components/theme-provider";
+import { getEnv } from "~/lib/env.server";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -29,8 +30,9 @@ export const links: LinksFunction = () => [
 export async function loader({ request }: LoaderFunctionArgs) {
   const locale = await i18next.getLocale(request);
   const theme = await getThemeFromCookie(request);
+  const ENV = getEnv();
 
-  return json({ locale, theme });
+  return json({ locale, theme, ENV });
 }
 
 export const handle = {
@@ -42,7 +44,7 @@ export const handle = {
 };
 
 export default function App() {
-  const { locale, theme = "system" } = useLoaderData<typeof loader>();
+  const { locale, theme = "system", ENV } = useLoaderData<typeof loader>();
   const { i18n } = useTranslation();
   const fetcher = useFetcher();
 
@@ -75,6 +77,11 @@ export default function App() {
         <ThemeProvider defaultTheme={theme} onThemeChange={onThemeChange}>
           <Outlet />
         </ThemeProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

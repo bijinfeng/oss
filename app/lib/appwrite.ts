@@ -3,8 +3,8 @@ import { Client, Account, Avatars, Storage, Databases } from "appwrite";
 export const client = new Client();
 
 client
-  .setEndpoint("https://appwrite.kebai.club/v1")
-  .setProject("652d337ad5a9a2720a1e");
+  .setEndpoint(ENV.APPWRITE_END_POINT)
+  .setProject(ENV.APPWRITE_PROJECT);
 
 export const account = new Account(client);
 export const avatars = new Avatars(client);

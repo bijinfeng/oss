@@ -23,6 +23,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
         <NavLink
           key={item.href}
           to={item.href}
+          end
           className={({ isActive }) =>
             cn(
               buttonVariants({ variant: "ghost" }),

@@ -1,17 +1,19 @@
 import { redirect } from "@vercel/remix";
 
-import { api } from "./appwrite";
 import { getSession } from "./session.server";
+import httpClient from "./http";
 
 export async function checkAuthSession(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   const jwt = session.get("jwt");
 
+  console.log("jwt: ", jwt);
+
   if (!jwt) {
     throw redirect("/login", 302);
   }
 
-  api.setJWT(jwt);
+  httpClient.setJwtToken(jwt);
 
   return session;
 }

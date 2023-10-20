@@ -1,8 +1,12 @@
 import { AccountLayout } from "~/components/account-layout";
 import { SignupForm, type FormValue } from "~/components/signup-form";
+import { register } from "~/lib/request";
 
 const Register = () => {
-  const handleSubmit = (value: FormValue) => {};
+  const handleSubmit = async (value: FormValue) => {
+    const res = await register(value);
+    console.log(res);
+  };
 
   return (
     <AccountLayout

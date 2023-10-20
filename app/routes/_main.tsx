@@ -8,7 +8,7 @@ import {
 
 import { Header } from "~/components/header";
 import { Footer } from "~/components/footer";
-import { api } from "~/lib/appwrite";
+import { getCurrentUser } from "~/lib/request";
 import { checkAuthSession } from "~/lib/auth.server";
 import { GlobalContext } from "~/lib/global.context";
 
@@ -24,9 +24,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   await checkAuthSession(request);
 
   try {
-    const userInfo = await api.getAccount();
+    const userInfo = await getCurrentUser();
     return json({ userInfo });
   } catch (error) {
+    console.error(99999);
     return redirect("/login");
   }
 };

@@ -1,10 +1,17 @@
-import type { Models } from "appwrite";
-
 export type Theme = "dark" | "light" | "system";
 
 export interface UserPreferences {}
 
-export interface UserInfo extends Models.User<UserPreferences> {}
+export interface UserInfo {
+  blocked: boolean;
+  confirmed: boolean;
+  createdAt: string;
+  email: string;
+  id: number;
+  provider: string;
+  updatedAt: string;
+  username: string;
+}
 
 export interface FileInfo {
   _id: string;
@@ -38,7 +45,7 @@ export interface Photo {
 }
 
 export interface RegisterFormValue {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }

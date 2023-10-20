@@ -20,6 +20,7 @@ import i18next from "~/i18next.server";
 import stylesheet from "~/tailwind.css";
 import { getThemeFromCookie } from "~/lib/theme.server";
 import { ThemeProvider } from "~/components/theme-provider";
+import { Toaster } from "~/components/ui/toaster";
 import { getEnv } from "~/lib/env.server";
 
 export const links: LinksFunction = () => [
@@ -76,6 +77,7 @@ export default function App() {
       <body>
         <ThemeProvider defaultTheme={theme} onThemeChange={onThemeChange}>
           <Outlet />
+          <Toaster />
         </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{

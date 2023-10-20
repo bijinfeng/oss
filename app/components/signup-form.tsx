@@ -15,7 +15,7 @@ import {
 import { Input } from "./ui/input";
 
 export const formSchema = z.object({
-  name: z.string({ required_error: "请填写姓名" }),
+  username: z.string({ required_error: "请填写姓名" }),
   email: z.string({ required_error: "请填写邮箱" }).email({
     message: "请填写正确的邮箱格式",
   }),
@@ -39,7 +39,7 @@ export const SignupForm: FC<SignupFormProps> = ({ onSubmit }) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="name"
+            name="username"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>

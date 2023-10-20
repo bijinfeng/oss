@@ -3,7 +3,7 @@ import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 
 import { LoginForm, type FormValue } from "~/components/login-form";
 import { AccountLayout } from "~/components/account-layout";
-import { api } from "~/lib/appwrite";
+import { login } from "~/lib/request";
 import { commitSession, getSession } from "~/lib/session.server";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -31,14 +31,12 @@ const Login = () => {
 
   // 登录成功后导航到首页
   const handleSubmit = async (value: FormValue) => {
-    const session = await api.createEmailSession(value.email, value.password);
-    const jwt = await api.createJWT();
-
-    fetcher.submit({ userId: session.userId, jwt }, { method: "post" });
+    const data = await login(value.email, value.password);
+    fetcher.submit({ userId: data.user.id, jwt: data.jwt }, { method: "post" });
   };
 
   const handleGithubLogin = () => {
-    api.createGithubOAuthSession(location.origin, `${location.origin}/login`);
+    // api.createGithubOAuthSession(location.origin, `${location.origin}/login`);
   };
 
   const handleGoogleLogin = () => {};

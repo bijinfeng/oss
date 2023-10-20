@@ -28,9 +28,15 @@ export type FormValue = z.infer<typeof formSchema>;
 
 interface LoginFormProps {
   onSubmit: (values: FormValue) => Promise<void>;
+  onGithubClick: () => void;
+  onGoogeClick: () => void;
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
+export const LoginForm: FC<LoginFormProps> = ({
+  onSubmit,
+  onGithubClick,
+  onGoogeClick,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const form = useForm<FormValue>({
@@ -104,11 +110,11 @@ export const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <Button variant="outline">
+        <Button variant="outline" onClick={onGithubClick}>
           <Icons.gitHub className="mr-2 h-4 w-4" />
           Github
         </Button>
-        <Button variant="outline">
+        <Button variant="outline" onClick={onGoogeClick}>
           <Icons.google className="mr-2 h-4 w-4" />
           Google
         </Button>

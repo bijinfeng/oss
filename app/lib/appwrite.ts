@@ -2,9 +2,7 @@ import { Client, Account, Avatars, Storage, Databases } from "appwrite";
 
 export const client = new Client();
 
-client
-  .setEndpoint(ENV.APPWRITE_END_POINT)
-  .setProject(ENV.APPWRITE_PROJECT);
+client.setEndpoint(ENV.APPWRITE_END_POINT).setProject(ENV.APPWRITE_PROJECT);
 
 export const account = new Account(client);
 export const avatars = new Avatars(client);
@@ -20,4 +18,7 @@ export const api = {
   createEmailSession: (email: string, password: string) =>
     account.createEmailSession(email, password),
   getAccountAvatar: (name?: string) => avatars.getInitials(name),
+  createGithubOAuthSession: (successUrl: string, failureUrl: string) =>
+    account.createOAuth2Session("github", successUrl, failureUrl),
+  createGoogleOAuthSession: () => account.createOAuth2Session("google"),
 };

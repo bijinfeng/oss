@@ -22,15 +22,12 @@ export class Request {
         const token = this.jwtToken ?? localStorage?.getItem(TOEKN_KEY);
         // 一般会请求拦截里面加token，用于后端的验证
         if (token) {
-          config.headers!.Authorization = `Bearer ${this.jwtToken}`;
+          config.headers!.Authorization = `Bearer ${token}`;
         }
-
-        console.log(111111, token);
 
         return config;
       },
       (err: any) => {
-        console.log(333333999);
         // 请求错误，这里可以用全局提示框进行提示
         return Promise.reject(err);
       }
@@ -38,7 +35,6 @@ export class Request {
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log(333333);
         // 直接返回res，当然你也可以只返回res.data
         // 系统如果有自定义code也可以在这里处理
         return res;

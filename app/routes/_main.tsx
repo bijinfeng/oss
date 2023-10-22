@@ -27,7 +27,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     const userInfo = await getCurrentUser();
     return json({ userInfo });
   } catch (error) {
-    console.error(99999);
     return redirect("/login");
   }
 };

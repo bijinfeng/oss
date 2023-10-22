@@ -26,8 +26,6 @@ export const register = async (data: RegisterFormValue) => {
 
 // 获取当前用户信息
 export const getCurrentUser = async () => {
-  console.log(222222);
   const res = await request.get<UserInfo>("/users/me");
-  console.log(res.data);
   return res.data;
 };

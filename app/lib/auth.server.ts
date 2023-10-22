@@ -7,8 +7,6 @@ export async function checkAuthSession(request: Request) {
   const session = await getSession(request.headers.get("Cookie"));
   const jwt = session.get("jwt");
 
-  console.log("jwt: ", jwt);
-
   if (!jwt) {
     throw redirect("/login", 302);
   }

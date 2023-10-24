@@ -29,3 +29,9 @@ export const getCurrentUser = async () => {
   const res = await request.get<UserInfo>("/users/me");
   return res.data;
 };
+
+
+// 登出
+export const logout = () => {
+  localStorage.removeItem(TOEKN_KEY);
+};

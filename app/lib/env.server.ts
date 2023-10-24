@@ -1,8 +1,6 @@
 import * as z from "zod";
 
 const envSchema = z.object({
-  APPWRITE_PROJECT: z.string().min(1),
-  APPWRITE_END_POINT: z.string().min(1),
   SERVER_HOST: z.string().min(1),
 });
 

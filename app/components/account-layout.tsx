@@ -17,12 +17,6 @@ interface AccountLayoutProps {
 export const AccountLayout: FC<AccountLayoutProps> = (props) => {
   const { children, title, flotLink } = props;
 
-  const handleGithubLogin = () => {
-    // api.createGithubOAuthSession(location.origin, `${location.origin}/login`);
-  };
-
-  const handleGoogleLogin = () => {};
-
   return (
     <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <Link
@@ -84,13 +78,19 @@ export const AccountLayout: FC<AccountLayoutProps> = (props) => {
               </div>
 
               <div className="grid grid-cols-2 gap-6">
-                <Button variant="outline" onClick={handleGithubLogin}>
-                  <Icons.gitHub className="mr-2 h-4 w-4" />
-                  Github
+                <Button variant="outline" asChild>
+                  <Link to={`${ENV.SERVER_HOST}/connect/github`}>
+                    {/* eslint-disable-next-line react/jsx-pascal-case */}
+                    <Icons.gitHub className="mr-2 h-4 w-4" />
+                    Github
+                  </Link>
                 </Button>
-                <Button variant="outline" onClick={handleGoogleLogin}>
-                  <Icons.google className="mr-2 h-4 w-4" />
-                  Google
+                <Button variant="outline" asChild>
+                  <Link to={`${ENV.SERVER_HOST}/connect/google`}>
+                    {/* eslint-disable-next-line react/jsx-pascal-case */}
+                    <Icons.google className="mr-2 h-4 w-4" />
+                    Google
+                  </Link>
                 </Button>
               </div>
             </div>

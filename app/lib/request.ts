@@ -55,3 +55,14 @@ export const resetPassword = async (data: {
 
   return res.data;
 };
+
+export const authProviderCallback = async (
+  provider: string,
+  search: string
+) => {
+  const res = await request.get<UserRes>(`/auth/${provider}/callback${search}`);
+
+  localStorage.setItem(TOEKN_KEY, res.data.jwt);
+
+  return res.data;
+};

@@ -68,7 +68,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
             <FormItem>
               <div className="flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
-                <Link className="text-xs" to="/forget-password">
+                <Link className="text-xs underline" to="/forget-password">
                   I forget password
                 </Link>
               </div>

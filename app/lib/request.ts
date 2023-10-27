@@ -17,7 +17,10 @@ export const login = async (email: string, password: string) => {
 
 // 注册
 export const register = async (data: RegisterFormValue) => {
-  const res = await request.post<{ user: UserInfo }>("/auth/local/register", data);
+  const res = await request.post<{ user: UserInfo }>(
+    "/auth/local/register",
+    data
+  );
   return res.data;
 };
 
@@ -27,8 +30,15 @@ export const getCurrentUser = async () => {
   return res.data;
 };
 
-
 // 登出
 export const logout = () => {
   localStorage.removeItem(TOEKN_KEY);
+};
+
+// 忘记密码
+export const forgetPassword = async (email: string) => {
+  const res = await request.post<{ ok: true }>("/auth/forgot-password", {
+    email,
+  });
+  return res.data;
 };

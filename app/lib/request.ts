@@ -17,10 +17,7 @@ export const login = async (email: string, password: string) => {
 
 // 注册
 export const register = async (data: RegisterFormValue) => {
-  const res = await request.post<UserRes>("/auth/local/register", data);
-
-  localStorage.setItem(TOEKN_KEY, res.data.jwt);
-
+  const res = await request.post<{ user: UserInfo }>("/auth/local/register", data);
   return res.data;
 };
 

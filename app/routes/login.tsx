@@ -35,22 +35,12 @@ const Login = () => {
     fetcher.submit({ userId: data.user.id, jwt: data.jwt }, { method: "post" });
   };
 
-  const handleGithubLogin = () => {
-    // api.createGithubOAuthSession(location.origin, `${location.origin}/login`);
-  };
-
-  const handleGoogleLogin = () => {};
-
   return (
     <AccountLayout
       title="Login to your account"
       flotLink={{ name: "Sign up", link: "/register" }}
     >
-      <LoginForm
-        onSubmit={handleSubmit}
-        onGithubClick={handleGithubLogin}
-        onGoogeClick={handleGoogleLogin}
-      />
+      <LoginForm onSubmit={handleSubmit} />
     </AccountLayout>
   );
 };

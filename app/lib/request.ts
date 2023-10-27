@@ -42,3 +42,16 @@ export const forgetPassword = async (email: string) => {
   });
   return res.data;
 };
+
+// 重置密码
+export const resetPassword = async (data: {
+  password: string;
+  passwordConfirmation: string;
+  code: string;
+}) => {
+  const res = await request.post<UserRes>("/auth/reset-password", data);
+
+  localStorage.setItem(TOEKN_KEY, res.data.jwt);
+
+  return res.data;
+};

@@ -4,20 +4,11 @@ import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 import { LoginForm, type FormValue } from "~/components/login-form";
 import { AccountLayout } from "~/components/account-layout";
 import { login } from "~/lib/request";
-import { commitSession, getSession } from "~/lib/session.server";
+import { commitSession } from "~/lib/session.server";
+import { setAuthSession } from "~/lib/auth.server";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  const formData = await request.formData();
-  const jwt = formData.get("jwt");
-  const userId = formData.get("userId");
-
-  if (!userId || !jwt) {
-    throw new Response("Not Found", { status: 404 });
-  }
-
-  session.set("user-id", userId as string);
-  session.set("jwt", jwt as string);
+  const session = await setAuthSession(request);
 
   return redirect("/", {
     headers: {

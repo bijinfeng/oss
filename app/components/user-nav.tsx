@@ -1,4 +1,5 @@
 import { useFetcher } from "@remix-run/react";
+import { useMemo } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -28,12 +29,16 @@ export function UserNav() {
     });
   };
 
+  const avatarUrl = useMemo(() => {
+    return `https://source.boringavatars.com/beam/120/${userInfo.username}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
+  }, [userInfo]);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage alt={userInfo.username} />
+            <AvatarImage src={avatarUrl} alt={userInfo.username} />
             <AvatarFallback>{userInfo.username}</AvatarFallback>
           </Avatar>
         </Button>

@@ -11,6 +11,10 @@ const sidebarNavItems = [
     title: "Appearance",
     href: "/setting/appearance",
   },
+  {
+    title: "Beds",
+    href: "/setting/beds",
+  }
 ];
 
 const Setting = () => {

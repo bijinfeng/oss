@@ -44,6 +44,7 @@ export interface IConfig {
   currentBed: string;
   bed: {
     qiniu?: IQiniuConfig;
+    aliyun?: IAliyunConfig;
   };
 }
 
@@ -169,4 +170,20 @@ export interface IQiniuConfig {
   options: string;
   /** 自定义存储路径，比如 `img/` */
   path: string;
+}
+
+/** 阿里云图床配置项 */
+export interface IAliyunConfig {
+  accessKeyId: string
+  accessKeySecret: string
+  /** 存储空间名 */
+  bucket: string
+  /** 存储区域代号 */
+  area: string
+  /** 自定义存储路径 */
+  path: string
+  /** 自定义域名，注意要加 `http://` 或者 `https://` */
+  customUrl: string
+  /** 针对图片的一些后缀处理参数 PicGo 2.2.0+ PicGo-Core 1.4.0+ */
+  options: string
 }

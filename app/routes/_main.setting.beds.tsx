@@ -23,7 +23,7 @@ const Beds = () => {
         </p>
       </div>
       <Separator />
-      <Tabs value={activeKey} onValueChange={setActiveKey}>
+      <Tabs className="space-y-8" value={activeKey} onValueChange={setActiveKey}>
         <div className="space-y-2">
           <Label>Bed</Label>
           <div>

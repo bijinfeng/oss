@@ -65,8 +65,8 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
   return (
     <div className={cn("space-y-2", className)} style={style}>
       <Label
-        className={cn(errorMessage && "text-destructive", {
-          required: isRequired,
+        className={cn({
+          "after:content-['*'] after:ml-0.5 after:text-red-500": isRequired,
         })}
       >
         {label}

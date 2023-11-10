@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { CheckIcon } from "@radix-ui/react-icons"
+import * as React from "react";
+import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { CheckIcon } from "@radix-ui/react-icons";
+import { useControllableValue } from "ahooks";
 
-import { cn } from "~/lib/utils"
+import { cn } from "~/lib/utils";
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
@@ -24,7 +25,52 @@ const Checkbox = React.forwardRef<
       <CheckIcon className="h-4 w-4" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>
-))
-Checkbox.displayName = CheckboxPrimitive.Root.displayName
+));
+Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-export { Checkbox }
+export interface OptionItem {
+  label: React.ReactNode;
+  value: string | number;
+  disabled?: boolean;
+}
+
+export interface CheckboxGroupProps {
+  disabled?: boolean;
+  options: OptionItem[];
+  value?: (string | number)[];
+  onChange?: (checkedValue: (string | number)[]) => void;
+}
+
+const CheckboxGroup = React.forwardRef<HTMLDivElement, CheckboxGroupProps>(
+  (props, ref) => {
+    const { options, disabled } = props;
+    const [value = [], onChange] = useControllableValue<(string | number)[]>(props, {
+      defaultValue: [],
+    });
+
+    return (
+      <div ref={ref} className="space-y-2">
+        {options.map((option) => (
+          <label key={option.value} className="flex items-center space-x-2">
+            <Checkbox
+              checked={value.includes(option.value)}
+              disabled={disabled || option.disabled}
+              onCheckedChange={(checked) => {
+                return checked
+                  ? onChange([...value, option.value])
+                  : onChange(value.filter((it) => it !== option.value));
+              }}
+            />
+            <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              {option.label}
+            </span>
+          </label>
+        ))}
+      </div>
+    );
+  }
+);
+
+CheckboxGroup.displayName = "CheckboxGroup";
+
+export { Checkbox, CheckboxGroup };

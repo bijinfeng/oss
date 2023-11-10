@@ -23,6 +23,8 @@ import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/toaster";
 import { getEnv } from "~/lib/env.server";
 
+import "@fontsource-variable/noto-sans-sc/wght.css";
+
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -74,7 +76,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="font-sans">
         <ThemeProvider defaultTheme={theme} onThemeChange={onThemeChange}>
           <Outlet />
           <Toaster />

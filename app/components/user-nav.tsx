@@ -1,4 +1,4 @@
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, NavLink } from "@remix-run/react";
 import { useMemo } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
@@ -16,6 +16,25 @@ import {
 import { useGlobalContext } from "~/lib/global.context";
 import { logout } from "~/lib/request";
 
+const navList = [
+  {
+    title: "图库",
+    to: "/",
+  },
+  {
+    title: "相册",
+    to: "/albums",
+  },
+  {
+    title: "上传",
+    to: "/upload",
+  },
+  {
+    title: "设置",
+    to: "/setting",
+  },
+];
+
 export function UserNav() {
   const fetcher = useFetcher();
   const { userInfo } = useGlobalContext();
@@ -30,7 +49,7 @@ export function UserNav() {
   };
 
   const avatarUrl = useMemo(() => {
-    return `https://source.boringavatars.com/beam/120/${userInfo.username}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`
+    return `https://source.boringavatars.com/beam/120/${userInfo.username}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`;
   }, [userInfo]);
 
   return (
@@ -56,10 +75,11 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>图库</DropdownMenuItem>
-          <DropdownMenuItem>相册</DropdownMenuItem>
-          <DropdownMenuItem>上传</DropdownMenuItem>
-          <DropdownMenuItem>设置</DropdownMenuItem>
+          {navList.map((nav) => (
+            <NavLink to={nav.to} key={nav.to}>
+              <DropdownMenuItem>{nav.title}</DropdownMenuItem>
+            </NavLink>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleLogout}>

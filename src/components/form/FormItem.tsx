@@ -21,6 +21,7 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
     labelSuffix,
     noStyle,
     description,
+    subTitle,
   } = props;
 
   // required 为 true，且 rules 为空时赋予 rules 默认值
@@ -74,6 +75,9 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
           <span className="form-label-description">{labelSuffix}</span>
         )}
       </Label>
+      {subTitle && (
+        <p className="text-[0.8rem] text-muted-foreground">{subTitle}</p>
+      )}
       {renderChildren()}
       {description && (
         <p className="text-[0.8rem] text-muted-foreground">{description}</p>

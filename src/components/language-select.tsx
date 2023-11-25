@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/select";
 
 interface LanguageSelectProps {
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
   triggerClassName?: string;
 }
 

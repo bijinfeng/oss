@@ -1,26 +1,26 @@
-import { Link } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { cn } from "@/lib/utils";
 
 export const MainNav = (props: React.HTMLAttributes<HTMLElement>) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const navList = [
     {
-      title: "图库",
+      title: t("gallery"),
       to: "/",
     },
     {
-      title: "相册",
+      title: t("photo-album"),
       to: "/albums",
     },
     {
-      title: "上传",
+      title: t("upload"),
       to: "/upload",
     },
     {
-      title: "设置",
+      title: t("setting"),
       to: "/setting",
     },
   ];
@@ -34,14 +34,15 @@ export const MainNav = (props: React.HTMLAttributes<HTMLElement>) => {
       )}
     >
       {navList.map((navItem) => (
-        <Link
+        <NavLink
           key={navItem.to}
           to={navItem.to}
-          // "text-sm font-medium transition-colors hover:text-primary"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          className={({ isActive }) => {
+            return cn("text-sm font-medium text-muted-foreground transition-colors hover:text-primary", { "text-primary": isActive })
+          }}
         >
           {navItem.title}
-        </Link>
+        </NavLink>
       ))}
     </nav>
   );

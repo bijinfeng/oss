@@ -41,4 +41,5 @@ export interface FormProps<V extends FieldValues> extends UseFormProps<V> {
 
 export interface FormItemProps extends FieldSharedProps, UseControllerProps {
   noStyle?: boolean;
+  subTitle?: React.ReactNode;
 }

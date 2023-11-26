@@ -1,9 +1,10 @@
 import { useImperativeHandle, useEffect } from "react";
-import type { FieldValues} from "react-hook-form";
+import type { FieldValues } from "react-hook-form";
 import { useForm, FormProvider } from "react-hook-form";
 import { useMemoizedFn } from "ahooks";
 import { noop } from "lodash-es";
 
+import { cn } from "@/lib/utils";
 import { FormContext } from "./FormContext";
 import type { FormProps } from "./type";
 
@@ -17,6 +18,7 @@ const Form = <V extends FieldValues>(props: FormProps<V>) => {
     form,
     mode = "onChange",
     onChange = noop,
+    className,
     ...formProps
   } = props;
   const memoizeChange = useMemoizedFn(onChange);
@@ -35,7 +37,7 @@ const Form = <V extends FieldValues>(props: FormProps<V>) => {
   return (
     <FormProvider<V> {...methods}>
       <FormContext.Provider value={{ showValidateMessage, layout, colon }}>
-        <div style={style} className="space-y-8">{children}</div>
+        <div style={style} className={cn("space-y-8", className)}>{children}</div>
       </FormContext.Provider>
     </FormProvider>
   );

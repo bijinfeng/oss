@@ -22,6 +22,7 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
     noStyle,
     description,
     subTitle,
+    labelClassName,
   } = props;
 
   // required 为 true，且 rules 为空时赋予 rules 默认值
@@ -65,12 +66,14 @@ const FormItem: React.FC<PropsWithChildren<FormItemProps>> = (props) => {
 
   return (
     <div className={cn("space-y-2", className)} style={style}>
-      <Label
-        className={cn({
-          "after:content-['*'] after:ml-0.5 after:text-red-500": isRequired,
-        })}
-      >
-        {label}
+      <Label className={labelClassName}>
+        <span
+          className={cn({
+            "after:content-['*'] after:ml-0.5 after:text-red-500": isRequired,
+          })}
+        >
+          {label}
+        </span>
         {labelSuffix && (
           <span className="form-label-description">{labelSuffix}</span>
         )}

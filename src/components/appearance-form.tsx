@@ -27,9 +27,7 @@ export const AppearanceForm = () => {
   return (
     <Form<FormValue> form={formRef} defaultValues={{ theme, language: i18n.language }}>
       <Form.Item name="language" label="Language">
-        <LanguageSelect
-          triggerClassName="w-[200px]"
-        />
+        <LanguageSelect triggerClassName="w-[200px]"/>
       </Form.Item>
       <Form.Item name="theme" label="Theme" subTitle="Select the theme for the dashboard.">
         <ThemeSwitch />

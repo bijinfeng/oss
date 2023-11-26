@@ -59,6 +59,7 @@
     "mime-types": "^2.1.35",
     "pino": "^8.16.2",
     "react": "^18.2.0",
+    "react-advanced-cropper": "^0.19.4",
     "react-day-picker": "^8.9.1",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",

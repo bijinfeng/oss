@@ -110,6 +110,9 @@ dependencies:
   react:
     specifier: ^18.2.0
     version: 18.2.0
+  react-advanced-cropper:
+    specifier: ^0.19.4
+    version: 0.19.4(react@18.2.0)
   react-day-picker:
     specifier: ^8.9.1
     version: 8.9.1(date-fns@2.30.0)(react@18.2.0)
@@ -2317,6 +2320,13 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  /advanced-cropper@0.18.0:
+    resolution: {integrity: sha512-Bo0fiW8F+kI4f8zEm8YXIDkGNi+aXaQPxqDijU7hY+1ETACbvFnNCxssspgAwHBy9RpFlcXMmjcq+LImUOhaqQ==}
+    engines: {node: '>=8', npm: '>=5'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
   /ahooks-v3-count@1.0.0:
     resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==}
     dev: false
@@ -2618,6 +2628,10 @@ packages:
     resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
     dependencies:
       clsx: 2.0.0
+    dev: false
+
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
     dev: false
 
   /cli-cursor@3.1.0:
@@ -4495,6 +4509,18 @@ packages:
     resolution: {integrity: sha512-ARhCpm70fzdcvNQfPoy49IaanKkTlRWF2JMzqhcJbhSFRZv7nPTvZJdcY7301IPmvW+/p0RgIWnQDLJxifsQ7g==}
     engines: {node: '>=8'}
     dev: true
+
+  /react-advanced-cropper@0.19.4(react@18.2.0):
+    resolution: {integrity: sha512-CJAeOyg5gMvrhZoaMKcP6XJf10xanUCHqRCFXUtIiKxcHgSGAVGedd/zjvCIG4E1hMoFwaaFazS/Hw0Odhtjmw==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      advanced-cropper: 0.18.0
+      classnames: 2.3.2
+      react: 18.2.0
+      tslib: 2.6.2
+    dev: false
 
   /react-day-picker@8.9.1(date-fns@2.30.0)(react@18.2.0):
     resolution: {integrity: sha512-W0SPApKIsYq+XCtfGeMYDoU0KbsG3wfkYtlw8l+vZp6KoBXGOlhzBUp4tNx1XiwiOZwhfdGOlj7NGSCKGSlg5Q==}

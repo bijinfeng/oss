@@ -66,3 +66,12 @@ export const authProviderCallback = async (
 
   return res.data;
 };
+
+// 上传图片
+export const uploadImage = async (file: File | Blob) => {
+  const form = new FormData();
+  form.append("files", file);
+
+  const res = await request.post("/upload", form);
+  console.log(res);
+};

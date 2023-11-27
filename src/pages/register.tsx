@@ -6,7 +6,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Form, { FormInstance } from "@/components/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loading } from "@/components/loading";
 
 interface FormValue {
   username: string;
@@ -31,7 +30,6 @@ export function Component() {
     } finally {
       setLoading(false);
     }
-
   };
 
   const renderSuccessAlert = () => (
@@ -50,22 +48,22 @@ export function Component() {
         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
         <polyline points="22 4 12 14.01 9 11.01"></polyline>
       </svg>
-      <AlertTitle className="text-sm">
-        Check your email to confirm
-      </AlertTitle>
+      <AlertTitle className="text-sm">Check your email to confirm</AlertTitle>
       <AlertDescription className="text-xs">
-        You&apos;ve successfully signed up. Please check your email to
-        confirm your account before signing in to the Supabase dashboard
+        You&apos;ve successfully signed up. Please check your email to confirm
+        your account before signing in to the Supabase dashboard
       </AlertDescription>
     </Alert>
-  )
+  );
 
   return (
     <AccountLayout
       title="Create new account"
       flotLink={{ name: "Login", link: "/login" }}
     >
-      {registered ? renderSuccessAlert() : (
+      {registered ? (
+        renderSuccessAlert()
+      ) : (
         <Form<FormValue> form={formRef}>
           <Form.Item name="username" label="Name" required>
             <Input placeholder="Enter name" />
@@ -76,8 +74,12 @@ export function Component() {
           <Form.Item required name="password" label="Password">
             <Input placeholder="Password" type="password" />
           </Form.Item>
-          <Button type="submit" onClick={handleSubmit} className="w-full" disabled={loading}>
-            {loading && <Loading size={18} className="mr-1" />}
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            className="w-full"
+            loading={loading}
+          >
             Create new account
           </Button>
         </Form>

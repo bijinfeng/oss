@@ -5,7 +5,6 @@ import { useState, useRef } from "react";
 import { AccountLayout } from "@/components/account-layout";
 import { login } from "@/lib/request";
 import Form, { FormInstance } from "@/components/form";
-import { Loading } from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -57,8 +56,12 @@ export function Component() {
           <Input placeholder="Your password" type="password" />
         </Form.Item>
 
-        <Button type="submit" onClick={handleSubmit} className="w-full" disabled={loading}>
-          {loading && <Loading size={18} className="mr-1" />}
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          className="w-full"
+          loading={loading}
+        >
           Sign in
         </Button>
       </Form>

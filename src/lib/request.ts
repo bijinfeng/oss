@@ -1,5 +1,5 @@
 import request, { TOEKN_KEY } from "@/lib/http";
-import type { RegisterFormValue, UserInfo } from "@/interface";
+import type { RegisterFormValue, UserInfo, UploadFile } from "@/interface";
 
 type UserRes = { jwt: string; user: UserInfo };
 
@@ -72,6 +72,6 @@ export const uploadImage = async (file: File | Blob) => {
   const form = new FormData();
   form.append("files", file);
 
-  const res = await request.post("/upload", form);
-  console.log(res);
+  const res = await request.post<UploadFile[]>("/upload", form);
+  return res.data[0];
 };
